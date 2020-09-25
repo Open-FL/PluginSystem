@@ -96,7 +96,7 @@ namespace PluginSystem.Loading.Plugins
         {
             try
             {
-                Assembly asm = Assembly.LoadFile(file);
+                Assembly asm = Assembly.LoadFrom(file);
                 return asm;
             }
             catch (Exception e)

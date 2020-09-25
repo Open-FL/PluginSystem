@@ -690,7 +690,18 @@ namespace PluginSystem.Core
                         return;
                     }
 
+                    List<BasePluginPointer> ptrs = installedPackages.Select(x => new BasePluginPointer(x)).ToList();
+
                     installedPackages.Add(key);
+                    List<BasePluginPointer> dependentPlugins =
+                        ptrs.Where(x => x.Dependencies.Contains(packageName)).ToList();
+
+                    foreach (BasePluginPointer dependentPlugin in dependentPlugins)
+                    {
+                        installedPackages.Remove(dependentPlugin.ToKeyPair());
+                        installedPackages.Add(dependentPlugin.ToKeyPair());
+                    }
+
                     ListHelper.SaveList(PluginPaths.PluginListFile, installedPackages.ToArray());
                     if (addToExistingHosts)
                     {

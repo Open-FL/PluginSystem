@@ -36,7 +36,11 @@ namespace PluginSystem.Core.Pointer
                                                 );
             PluginName = parts[0];
             PluginFile = parts[1];
-            PluginOrigin = parts.Length == 3 ? parts[2] : "";
+            PluginOrigin = parts[2];
+            if (parts.Length == 4)
+            {
+                dependencies = parts[3];
+            }
         }
 
         /// <summary>
@@ -50,6 +54,10 @@ namespace PluginSystem.Core.Pointer
         public string PluginFile { get; }
 
         public string PluginOrigin { get; }
+
+        private readonly string dependencies;
+
+        public string[] Dependencies => dependencies?.Split(';') ?? new string[0];
 
         public Uri PluginOriginUri => string.IsNullOrEmpty(PluginOrigin) ? null : new Uri(PluginOrigin);
 
