@@ -20,12 +20,6 @@ namespace PluginSystem.Loading.Ordering
         private static string[] Queues => new[] { PluginPaths.LoadOrderListFile };
 
         /// <summary>
-        /// The Load Order Queues Global Lists
-        /// </summary>
-        private static string[] GlobalLists =>
-            new[] { PluginPaths.GlobalPluginListFile, PluginPaths.GlobalPluginListFile };
-
-        /// <summary>
         /// Returns the Load Order List of the Specified Queue
         /// </summary>
         /// <param name="queue">The Queue Specified</param>
@@ -52,6 +46,20 @@ namespace PluginSystem.Loading.Ordering
         {
             PluginManager.AfterInstallPackage += PluginManager_AfterInstallPackage;
             PluginManager.AfterRegisterHost += PluginManager_AfterRegisterHost;
+            PluginManager.AfterActivatePackage += PluginManager_AfterActivatePackage;
+        }
+
+        private static void PluginManager_AfterActivatePackage(Events.Args.ActivatePackageEventArgs eventArgs)
+        {
+            List<string> lst = GetLoadOrderList(LoadOrderQueue.Default);
+            List<BasePluginPointer> dependentPlugins =
+                ListHelper.LoadList(PluginPaths.GlobalPluginListFile).Select(x=>new BasePluginPointer(x)).Where(x => x.Dependencies.Contains(eventArgs.PackagePointer.PluginName)).ToList();
+
+            foreach (BasePluginPointer dependentPlugin in dependentPlugins)
+            {
+                lst.Remove(dependentPlugin.PluginName);
+                lst.Add(dependentPlugin.PluginName);
+            }
         }
 
         /// <summary>
