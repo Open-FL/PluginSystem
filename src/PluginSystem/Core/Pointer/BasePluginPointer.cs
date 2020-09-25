@@ -67,7 +67,7 @@ namespace PluginSystem.Core.Pointer
         /// <returns>Key Value Pair from the PluginName and PluginFile ({PluginName}|PluginFile}</returns>
         public string ToKeyPair()
         {
-            return $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}";
+            return $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}{StaticData.KeyPairSeparator}{dependencies}";
         }
 
         /// <summary>
