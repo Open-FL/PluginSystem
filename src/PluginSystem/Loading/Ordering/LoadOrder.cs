@@ -60,6 +60,7 @@ namespace PluginSystem.Loading.Ordering
                 lst.Remove(dependentPlugin.PluginName);
                 lst.Add(dependentPlugin.PluginName);
             }
+            SetLoadOrderList(LoadOrderQueue.Default, lst);
         }
 
         /// <summary>
