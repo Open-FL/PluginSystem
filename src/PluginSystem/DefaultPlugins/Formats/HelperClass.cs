@@ -3,10 +3,43 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
+using PluginSystem.Core;
+using PluginSystem.Core.Pointer;
+using PluginSystem.DefaultPlugins.Formats.PackageData;
+using PluginSystem.DefaultPlugins.Formats.Packer;
+
 namespace PluginSystem.DefaultPlugins.Formats
 {
-    internal static class HelperClass
+    public static class HelperClass
     {
+        public static void ReloadDefaultPlugins()
+        {
+            PluginManager.AddPlugin(
+                                    FolderPackerFormat.Embedded(),
+                                    new PluginAssemblyPointer("plugin-format-dir-packer", "", "", PluginManager.PluginHost)
+                                   );
+            PluginManager.AddPlugin(
+                                    new ZipPackerFormat(),
+                                    new PluginAssemblyPointer("plugin-format-zip-packer", "", "", PluginManager.PluginHost)
+                                   );
+            PluginManager.AddPlugin(
+                                    VSBuildPlugin.Embedded(),
+                                    new PluginAssemblyPointer(
+                                                              "plugin-format-vs-packer",
+                                                              "", "",
+                                                              PluginManager.PluginHost
+                                                             )
+                                   );
+            PluginManager.AddPlugin(
+                                    PlainTextDataFormat.Embedded(),
+                                    new PluginAssemblyPointer("plugin-ptr-format-plain-packer", "", "", PluginManager.PluginHost)
+                                   );
+            PluginManager.AddPlugin(
+                                    new DLLPackerFormat(),
+                                    new PluginAssemblyPointer("plugin-format-dll-packer", "", "", PluginManager.PluginHost)
+                                   );
+        }
+
 
         internal static string[] CopyTo(string inputFolder, string outputFolder)
         {
