@@ -15,6 +15,7 @@ using PluginSystem.FileSystem.PackageData;
 using PluginSystem.FileSystem.Packer;
 using PluginSystem.Loading.Ordering;
 using PluginSystem.Loading.Plugins;
+using PluginSystem.StartupActions;
 using PluginSystem.Updating;
 using PluginSystem.Utility;
 
@@ -70,6 +71,13 @@ namespace PluginSystem.Core
             AfterCleanTempFolder?.Invoke();
         }
 
+        public static BasePluginPointer GetPluginFromName(string name)
+        {
+            string[] list = ListHelper.LoadList(PluginPaths.GlobalPluginListFile);
+            string item = list.FirstOrDefault(x => x.StartsWith(name + StaticData.KeyPairSeparator));
+            if (item == null) return null;
+            return new BasePluginPointer(item);
+        }
 
         public static void Initialize(
             string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus, string staticDataConfig = null)
@@ -124,6 +132,12 @@ namespace PluginSystem.Core
             PluginHost = new PluginSystemHost();
 
             HelperClass.ReloadDefaultPlugins();
+
+            if (File.Exists(PluginPaths.InternalStartupInstructionPath))
+            {
+                SendLog("Running Start Actions..");
+                ActionRunner.RunActions();
+            }
 
             ListHelper.LoadList(PluginPaths.PluginListFile).Select(x => new BasePluginPointer(x)).ToList()
                       .ForEach(x => UpdateManager.CheckAndUpdate(x, updateDialog, setStatus));

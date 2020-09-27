@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 using PluginSystem.Core;
@@ -35,7 +36,7 @@ namespace PluginSystem.Utility
         /// </summary>
         /// <param name="path">Target Path</param>
         /// <param name="list">Content</param>
-        public static void SaveList(string path, string[] list)
+        public static void SaveList(string path, IEnumerable<string> list)
         {
             try
             {

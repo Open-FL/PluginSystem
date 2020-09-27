@@ -68,6 +68,8 @@ namespace PluginSystem.Core
         /// </summary>
         public static string LoadOrderListName { get; } = "load-order";
 
+        public static string InitStartupInstrsName = "startup-action";
+
         /// <summary>
         /// The Name of the List File which will be used to store the Load order of the Plugins
         /// </summary>

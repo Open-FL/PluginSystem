@@ -54,6 +54,13 @@ namespace PluginSystem.FileSystem
                          StaticData.InitPluginListName + StaticData.PluginListExtension
                         );
 
+        public static string InternalStartupInstructionPath =>
+            Path.Combine(
+                         InternalSystemConfigPath,
+                         StaticData.ConfigFolder,
+                         StaticData.InitStartupInstrsName + StaticData.PluginListExtension
+                        );
+
         /// <summary>
         /// Returns the Full Path to the Plugin Load Order List File
         /// </summary>
