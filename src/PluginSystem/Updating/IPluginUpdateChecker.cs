@@ -9,7 +9,7 @@ namespace PluginSystem.Updating
 
         bool CanCheck(BasePluginPointer ptr);
 
-        void CheckAndUpdate(BasePluginPointer ptr, Func<string, string, bool> updateDialog);
+        void CheckAndUpdate(BasePluginPointer ptr, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus);
 
     }
 }

@@ -16,7 +16,7 @@ namespace PluginSystem.Core.Pointer
         /// <param name="name">Plugin Name</param>
         /// <param name="file">Plugin File</param>
         /// <param name="host">The Plugin Host</param>
-        public PluginAssemblyPointer(string name, string file, string origin, IPluginHost host) : base(name, file, origin)
+        public PluginAssemblyPointer(string name, string file, string origin, string version, IPluginHost host) : base(name, file, origin, version, "")
         {
             Host = host;
         }

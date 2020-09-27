@@ -6,6 +6,7 @@ using System.Reflection;
 
 using PluginSystem.Core.Interfaces;
 using PluginSystem.Core.Pointer;
+using PluginSystem.DefaultPlugins.Formats;
 using PluginSystem.Events;
 using PluginSystem.Events.Args;
 using PluginSystem.Exceptions;
@@ -71,7 +72,7 @@ namespace PluginSystem.Core
 
 
         public static void Initialize(
-            string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, string staticDataConfig = null)
+            string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus, string staticDataConfig = null)
         {
             if (!Directory.Exists(rootPath))
             {
@@ -82,6 +83,7 @@ namespace PluginSystem.Core
                        Path.Combine(rootPath, internalConfigPath),
                        Path.Combine(rootPath, pluginDirectory),
                        updateDialog,
+                       setStatus,
                        staticDataConfig
                       );
         }
@@ -91,7 +93,7 @@ namespace PluginSystem.Core
         /// </summary>
         /// <param name="internalConfigPath">The Path that is used by internal config files by the Plugin System</param>
         /// <param name="pluginDirectory">The Path used as "Install Directory" for Plugins/Packages</param>
-        public static void Initialize(string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, string staticDataConfig = null)
+        public static void Initialize(string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus, string staticDataConfig = null)
         {
             if (IsInitialized)
             {
@@ -119,11 +121,16 @@ namespace PluginSystem.Core
 
             SendLog("Updating..");
 
-            ListHelper.LoadList(PluginPaths.PluginListFile).Select(x => new BasePluginPointer(x)).ToList()
-                      .ForEach(x => UpdateManager.CheckAndUpdate(x, updateDialog));
-
-                               SendLog("Registering System Host..");
             PluginHost = new PluginSystemHost();
+
+            HelperClass.ReloadDefaultPlugins();
+
+            ListHelper.LoadList(PluginPaths.PluginListFile).Select(x => new BasePluginPointer(x)).ToList()
+                      .ForEach(x => UpdateManager.CheckAndUpdate(x, updateDialog, setStatus));
+
+            SendLog("Registering System Host..");
+
+
             LoadPlugins(PluginHost);
             SendLog("Registered System Host..");
             SendLogDivider();
@@ -460,11 +467,11 @@ namespace PluginSystem.Core
             }
         }
 
-        
+
         public static bool IsPackageActivated(string name)
         {
             List<string> list = ListHelper.LoadList(PluginPaths.PluginListFile).ToList();
-            return list.Select(x=>new BasePluginPointer(x)).Any(x=>x.PluginName == name);
+            return list.Select(x => new BasePluginPointer(x)).Any(x => x.PluginName == name);
         }
 
 
@@ -597,12 +604,17 @@ namespace PluginSystem.Core
 
                         List<string> installedPackages = ListHelper.LoadList(PluginPaths.GlobalPluginListFile).ToList();
                         string newPackage = ptr.ToKeyPair();
-                        bool isNew = !installedPackages.Contains(newPackage);
+                        bool isNew = installedPackages.All(x=>!x.StartsWith(ptr.PluginName));
                         if (isNew)
                         {
                             installedPackages.Add(newPackage);
-                            ListHelper.SaveList(PluginPaths.GlobalPluginListFile, installedPackages.ToArray());
                         }
+                        else
+                        {
+                            installedPackages.RemoveAll(x => x.StartsWith(ptr.PluginName));
+                            installedPackages.Add(newPackage);
+                        }
+                        ListHelper.SaveList(PluginPaths.GlobalPluginListFile, installedPackages.ToArray());
 
                         //TODO: Check if the Install would overwrite things.
                         //TODO: Check if the files that are overwritten are in use.
@@ -703,6 +715,7 @@ namespace PluginSystem.Core
                                                                                   packageKey.PluginName,
                                                                                   packageKey.PluginFile,
                                                                                   packageKey.PluginOrigin,
+                                                                                  packageKey.PluginVersion.ToString(),
                                                                                   loadedPlugin.Key
                                                                                  );
                             PluginLoader.AddPluginsFromLoaderResult(ptr);
@@ -720,7 +733,7 @@ namespace PluginSystem.Core
 
         public static void DeactivatePackage(IPlugin plugin)
         {
-            if(!PointerMap.ContainsKey(plugin))
+            if (!PointerMap.ContainsKey(plugin))
                 throw new ArgumentException("Internal data Corrupt.");
             DeactivatePackage(PointerMap[plugin].PluginName);
         }

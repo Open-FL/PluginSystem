@@ -50,7 +50,7 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
             }
 
 
-            File.WriteAllText(Path.Combine(outputDirectory, "info.txt"), $"{name}|{pluginAssembly}|{file}");
+            File.WriteAllText(Path.Combine(outputDirectory, "info.txt"), $"{name}|{pluginAssembly}|{file}|{asm.GetName().Version}");
         }
 
     }

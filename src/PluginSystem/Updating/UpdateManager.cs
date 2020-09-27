@@ -11,15 +11,15 @@ namespace PluginSystem.Updating
     {
         private static readonly List<IPluginUpdateChecker> Checker = new List<IPluginUpdateChecker>
                                                                      {
-                                                                         new FileEqualityUpdateChecker()
+                                                                         new FileEqualityUpdateChecker(), new WebPointerUpdateChecker()
                                                                      };
 
-        public static void CheckAndUpdate(BasePluginPointer ptr, Func<string, string, bool> updateDialog)
+        public static void CheckAndUpdate(BasePluginPointer ptr, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus)
         {
             if (Checker.All(x => !x.CanCheck(ptr))) return;
 
             PluginManager.SendLog("Updating Plugin: " + ptr.PluginName);
-            Checker.First(x => x.CanCheck(ptr)).CheckAndUpdate(ptr, updateDialog);
+            Checker.First(x => x.CanCheck(ptr)).CheckAndUpdate(ptr, updateDialog, setStatus);
         }
 
     }

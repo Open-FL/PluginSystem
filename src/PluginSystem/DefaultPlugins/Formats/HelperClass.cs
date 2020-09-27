@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 using PluginSystem.Core;
 using PluginSystem.Core.Pointer;
@@ -12,31 +13,62 @@ namespace PluginSystem.DefaultPlugins.Formats
 {
     public static class HelperClass
     {
-        public static void ReloadDefaultPlugins()
+        internal static void ReloadDefaultPlugins()
         {
             PluginManager.AddPlugin(
                                     FolderPackerFormat.Embedded(),
-                                    new PluginAssemblyPointer("plugin-format-dir-packer", "", "", PluginManager.PluginHost)
+                                    new PluginAssemblyPointer(
+                                                              "plugin-format-dir-packer",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
+                                                              PluginManager.PluginHost
+                                                             )
                                    );
             PluginManager.AddPlugin(
                                     new ZipPackerFormat(),
-                                    new PluginAssemblyPointer("plugin-format-zip-packer", "", "", PluginManager.PluginHost)
+                                    new PluginAssemblyPointer(
+                                                              "plugin-format-zip-packer",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
+                                                              PluginManager.PluginHost
+                                                             )
                                    );
             PluginManager.AddPlugin(
                                     VSBuildPlugin.Embedded(),
                                     new PluginAssemblyPointer(
                                                               "plugin-format-vs-packer",
-                                                              "", "",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
                                                               PluginManager.PluginHost
                                                              )
                                    );
             PluginManager.AddPlugin(
                                     PlainTextDataFormat.Embedded(),
-                                    new PluginAssemblyPointer("plugin-ptr-format-plain-packer", "", "", PluginManager.PluginHost)
+                                    new PluginAssemblyPointer(
+                                                              "plugin-ptr-format-plain-packer",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
+                                                              PluginManager.PluginHost
+                                                             )
                                    );
             PluginManager.AddPlugin(
                                     new DLLPackerFormat(),
-                                    new PluginAssemblyPointer("plugin-format-dll-packer", "", "", PluginManager.PluginHost)
+                                    new PluginAssemblyPointer(
+                                                              "plugin-format-dll-packer",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
+                                                              PluginManager.PluginHost
+                                                             )
                                    );
         }
 

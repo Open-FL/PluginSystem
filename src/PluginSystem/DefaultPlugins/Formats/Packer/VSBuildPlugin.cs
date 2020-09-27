@@ -76,7 +76,7 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
                 targetDir = Path.Combine(targetDir, corePath);
             }
 
-            File.WriteAllText(Path.Combine(outputDir, "info.txt"), $"{pluginName}|{pluginAssembly}|{Path.Combine(binDir, pluginAssembly)}");
+            File.WriteAllText(Path.Combine(outputDir, "info.txt"), $"{pluginName}|{pluginAssembly}|{Path.Combine(binDir, pluginAssembly)}|9.9.9.9");
             File.Copy(Path.Combine(targetDir, pluginAssembly), Path.Combine(binDir, pluginAssembly));
         }
 

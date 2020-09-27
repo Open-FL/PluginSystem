@@ -17,11 +17,13 @@ namespace PluginSystem.Core.Pointer
         /// </summary>
         /// <param name="name">Plugin Name</param>
         /// <param name="file">Plugin File</param>
-        public BasePluginPointer(string name, string file, string origin)
+        public BasePluginPointer(string name, string file, string origin, string pluginVersion, string dependencies)
         {
             PluginFile = file;
             PluginName = name;
             PluginOrigin = origin;
+            this.dependencies =dependencies;
+            PluginVersion = Version.Parse(pluginVersion);
         }
 
         /// <summary>
@@ -37,9 +39,10 @@ namespace PluginSystem.Core.Pointer
             PluginName = parts[0];
             PluginFile = parts[1];
             PluginOrigin = parts[2];
-            if (parts.Length == 4)
+            PluginVersion = Version.Parse(parts[3]);
+            if (parts.Length == 5)
             {
-                dependencies = parts[3];
+                dependencies = parts[4];
             }
         }
 
@@ -55,6 +58,8 @@ namespace PluginSystem.Core.Pointer
 
         public string PluginOrigin { get; }
 
+        public Version PluginVersion { get; }
+
         private readonly string dependencies;
 
         public string[] Dependencies => dependencies?.Split(';') ?? new string[0];
@@ -67,7 +72,7 @@ namespace PluginSystem.Core.Pointer
         /// <returns>Key Value Pair from the PluginName and PluginFile ({PluginName}|PluginFile}</returns>
         public string ToKeyPair()
         {
-            return $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}{StaticData.KeyPairSeparator}{dependencies}";
+            return $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}{StaticData.KeyPairSeparator}{PluginVersion}{StaticData.KeyPairSeparator}{dependencies}";
         }
 
         /// <summary>
