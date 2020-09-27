@@ -70,6 +70,17 @@ namespace PluginSystem.DefaultPlugins.Formats
                                                               PluginManager.PluginHost
                                                              )
                                    );
+            PluginManager.AddPlugin(
+                                    new URLPackerFormat(), 
+                                    new PluginAssemblyPointer(
+                                                              "plugin-format-url-packer",
+                                                              "",
+                                                              "",
+                                                              Assembly.GetExecutingAssembly().GetName().Version
+                                                                      .ToString(),
+                                                              PluginManager.PluginHost
+                                                             )
+                                   );
         }
 
 
