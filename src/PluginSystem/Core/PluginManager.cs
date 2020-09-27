@@ -603,6 +603,7 @@ namespace PluginSystem.Core
                         }
 
                         List<string> installedPackages = ListHelper.LoadList(PluginPaths.GlobalPluginListFile).ToList();
+                        List<string> activePackages = ListHelper.LoadList(PluginPaths.PluginListFile).ToList();
                         string newPackage = ptr.ToKeyPair();
                         bool isNew = installedPackages.All(x=>!x.StartsWith(ptr.PluginName));
                         if (isNew)
@@ -611,6 +612,11 @@ namespace PluginSystem.Core
                         }
                         else
                         {
+                            if (activePackages.RemoveAll(x => x.StartsWith(ptr.PluginName)) != 0)
+                            {
+                                activePackages.Add(newPackage);
+                                ListHelper.SaveList(PluginPaths.PluginListFile, activePackages.ToArray());
+                            }
                             installedPackages.RemoveAll(x => x.StartsWith(ptr.PluginName));
                             installedPackages.Add(newPackage);
                         }
