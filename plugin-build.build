@@ -1,5 +1,0 @@
-name: test-plugin
-target: .\src\TestPlugin\bin\Debug\TestPlugin.dll
-output: .\docs\latest\test-plugin.zip
-origin: http://localhost/test/info.txt
-flags: INFO_TO_OUTPUT
