@@ -15,12 +15,6 @@ namespace TestPlugin
     public class TestPlugin: APlugin<Form1>
     {
 
-        public override string Name => "test-plugin";
-
-        public override bool HasIO => true;
-
-        public override bool IsMainPlugin => true;
-
         public override void OnLoad(PluginAssemblyPointer ptr)
         {
             base.OnLoad(ptr);
