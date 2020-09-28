@@ -3,70 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using PluginSystem.Core;
 using PluginSystem.Core.Pointer;
 using PluginSystem.FileSystem;
 
 namespace PluginSystem.StartupActions
 {
-    public abstract class StartupAction
-    {
-
-        public abstract string ActionName { get; }
-
-        public abstract void RunAction(string[] parameter);
-
-    }
-
-    public class AddPackageAction : StartupAction
-    {
-
-        public override string ActionName => ActionRunner.ADD_PACKAGE_ACTION;
-
-        public override void RunAction(string[] parameter)
-        {
-            PluginManager.AddPackage(parameter[0], out string name);
-        }
-
-    }
-
-    public class RemovePackageAction : StartupAction
-    {
-
-        public override string ActionName => ActionRunner.REMOVE_PACKAGE_ACTION;
-
-        public override void RunAction(string[] parameter)
-        {
-            PluginManager.RemovePackage(PluginManager.GetPluginFromName(parameter[0]));
-        }
-
-    }
-    public class ActivatePackageAction : StartupAction
-    {
-
-        public override string ActionName => ActionRunner.ACTIVATE_PACKAGE_ACTION;
-
-        public override void RunAction(string[] parameter)
-        {
-            PluginManager.ActivatePackage(parameter[0]);
-        }
-
-    }
-
-    public class DeactivatePackageAction : StartupAction
-    {
-
-        public override string ActionName => ActionRunner.DEACTIVATE_PACKAGE_ACTION;
-
-        public override void RunAction(string[] parameter)
-        {
-            PluginManager.DeactivatePackage(parameter[0]);
-        }
-
-    }
-
     public static class ActionRunner
     {
+
+        static ActionRunner()
+        {
+            AddActionInstruction(new ActivatePackageAction());
+            AddActionInstruction(new AddPackageAction());
+            AddActionInstruction(new DeactivatePackageAction());
+            AddActionInstruction(new RemovePackageAction());
+        }
 
         public const string ADD_PACKAGE_ACTION = "add-package";
         public const string REMOVE_PACKAGE_ACTION = "remove-package";
