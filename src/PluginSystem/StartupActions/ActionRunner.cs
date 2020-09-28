@@ -17,12 +17,14 @@ namespace PluginSystem.StartupActions
             AddActionInstruction(new AddPackageAction());
             AddActionInstruction(new DeactivatePackageAction());
             AddActionInstruction(new RemovePackageAction());
+            AddActionInstruction(new AddActivatePackageAction());
         }
 
         public const string ADD_PACKAGE_ACTION = "add-package";
         public const string REMOVE_PACKAGE_ACTION = "remove-package";
         public const string ACTIVATE_PACKAGE_ACTION = "activate-package";
         public const string DEACTIVATE_PACKAGE_ACTION = "deactivate-package";
+        public const string ADD_ACTIVATE_PACKAGE_ACTION = "add-activate-package";
         private static readonly List<StartupAction> Actions = new List<StartupAction>();
 
         public static void AddActionInstruction(StartupAction action)

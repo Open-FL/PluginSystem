@@ -13,6 +13,7 @@ using PluginSystem.Core;
 using PluginSystem.Core.Interfaces;
 using PluginSystem.Core.Pointer;
 using PluginSystem.FileSystem;
+using PluginSystem.StartupActions;
 
 namespace TestApplication
 {
@@ -30,9 +31,8 @@ namespace TestApplication
 
         private void btnInstallPackage_Click(object sender, EventArgs e)
         {
-            PluginManager.AddPackage(tbPackageOrigin.Text, out string name);
-            PluginManager.ActivatePackage(name);
-            MessageBox.Show("Added Package: " + (name ?? "NULL"));
+            ActionRunner.AddActionToStartup($"{ActionRunner.ADD_ACTIVATE_PACKAGE_ACTION} {tbPackageOrigin.Text}");
+            MessageBox.Show("Package will be added on the next restart");
         }
 
         public bool IsAllowedPlugin(IPlugin plugin)

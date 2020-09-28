@@ -566,7 +566,7 @@ namespace PluginSystem.Core
         /// <param name="file">Package Input Path</param>
         /// <param name="name">When Loaded successfully contains the Name of the Loaded plugin</param>
         /// <returns>True if the Adding was Successful</returns>
-        public static bool AddPackage(string file, out string name)
+        internal static bool AddPackage(string file, out string name)
         {
             if (!IsInitialized)
             {
@@ -673,7 +673,7 @@ namespace PluginSystem.Core
         /// </summary>
         /// <param name="ptr">Pointer Pointing to the Package that should be removed.</param>
         /// <param name="keepArchive">When set to false will also delete the backup archive.</param>
-        public static void RemovePackage(BasePluginPointer ptr, bool keepArchive = true)
+        internal static void RemovePackage(BasePluginPointer ptr, bool keepArchive = true)
         {
             //TODO: Check if the Package is in the Installed List. Then we need to wait until the program restarted.
 
@@ -703,7 +703,7 @@ namespace PluginSystem.Core
         /// </summary>
         /// <param name="packageName">The Package to be activated.</param>
         /// <param name="addToExistingHosts">When True will add all plugins in the Package to Compatible Loaded Hosts.</param>
-        public static void ActivatePackage(string packageName, bool addToExistingHosts = false)
+        internal static void ActivatePackage(string packageName, bool addToExistingHosts = false)
         {
             List<BasePluginPointer> globalPackages =
                 ListHelper.LoadList(PluginPaths.GlobalPluginListFile).Select(x => new BasePluginPointer(x)).ToList();
@@ -721,8 +721,6 @@ namespace PluginSystem.Core
                     {
                         return;
                     }
-
-                    List<BasePluginPointer> ptrs = installedPackages.Select(x => new BasePluginPointer(x)).ToList();
 
                     installedPackages.Add(key);
 
@@ -751,7 +749,7 @@ namespace PluginSystem.Core
             }
         }
 
-        public static void DeactivatePackage(IPlugin plugin)
+        internal static void DeactivatePackage(IPlugin plugin)
         {
             if (!PointerMap.ContainsKey(plugin))
                 throw new ArgumentException("Internal data Corrupt.");
@@ -762,7 +760,7 @@ namespace PluginSystem.Core
         /// Deactivates a Package so its plugins are not considered when searching for compatible plugins for a Host.
         /// </summary>
         /// <param name="packageName">Name of package that should be deactivated.</param>
-        public static void DeactivatePackage(string packageName)
+        internal static void DeactivatePackage(string packageName)
         {
             List<string> list = ListHelper.LoadList(PluginPaths.PluginListFile).ToList();
             List<BasePluginPointer> installedPackages = list.Select(x => new BasePluginPointer(x)).ToList();
