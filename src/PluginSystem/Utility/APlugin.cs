@@ -10,12 +10,6 @@ namespace PluginSystem.Utility
     public abstract class APlugin<Host> : IPlugin
         where Host : IPluginHost
     {
-
-        public virtual string Name => GetType().Name;
-
-        public virtual bool IsMainPlugin => false;
-
-        public virtual bool HasIO => true;
         /// <summary>
         /// The Plugin Pointer that is associated to this Plugin/Host combo
         /// </summary>

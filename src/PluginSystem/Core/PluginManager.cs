@@ -453,8 +453,8 @@ namespace PluginSystem.Core
 
 
                 SendLog($"Adding {plugin.GetType().Name} to {data.Host.GetType().Name}");
-                if (plugin.HasIO)
-                    data.EnsureDirectoriesExist();
+
+                data.EnsureDirectoriesExist();
 
                 PointerMap[plugin] = data;
                 LoadedPlugins[data.Host].Add(plugin);
@@ -619,7 +619,7 @@ namespace PluginSystem.Core
                         List<string> installedPackages = ListHelper.LoadList(PluginPaths.GlobalPluginListFile).ToList();
                         List<string> activePackages = ListHelper.LoadList(PluginPaths.PluginListFile).ToList();
                         string newPackage = ptr.ToKeyPair();
-                        bool isNew = installedPackages.All(x=>!x.StartsWith(ptr.PluginName));
+                        bool isNew = installedPackages.All(x => !x.StartsWith(ptr.PluginName));
                         if (isNew)
                         {
                             installedPackages.Add(newPackage);

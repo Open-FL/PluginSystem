@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -32,25 +33,15 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
             Directory.CreateDirectory(binDir);
             Directory.CreateDirectory(confDir);
             File.Copy(file, targetAssembly);
-
-            Assembly asm = PluginLoader.SaveLoadFrom(file);
+            
             string pluginAssembly = Path.GetFileName(file);
-            if (asm != null)
-            {
-                List<IPlugin> pl = PluginLoader.GetAllTypeInstances<IPlugin>(asm.GetTypes());
-
-                string plName = pl.Any(x => x.IsMainPlugin)
-                                    ? pl.First(x => x.IsMainPlugin).Name
-                                    : pl.FirstOrDefault()?.Name;
-
-                if (plName != null)
-                {
-                    name = plName;
-                }
-            }
 
 
-            File.WriteAllText(Path.Combine(outputDirectory, "info.txt"), $"{name}|{pluginAssembly}|{file}|{asm.GetName().Version}");
+
+            File.WriteAllText(
+                              Path.Combine(outputDirectory, "info.txt"),
+                              $"{name}|{pluginAssembly}|{file}|{FileVersionInfo.GetVersionInfo(targetAssembly).FileVersion}"
+                             );
         }
 
     }

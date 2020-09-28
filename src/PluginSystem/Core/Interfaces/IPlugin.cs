@@ -7,9 +7,6 @@ namespace PluginSystem.Core.Interfaces
     /// </summary>
     public interface IPlugin
     {
-        bool IsMainPlugin { get; }
-        bool HasIO { get; }
-        string Name { get; }
         /// <summary>
         /// Gets Called when this Plugin is attached to a Host.
         /// </summary>
