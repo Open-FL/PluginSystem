@@ -133,6 +133,7 @@ namespace PluginSystem.Core
 
             HelperClass.ReloadDefaultPlugins();
 
+            OnInitialized?.Invoke();
             if (File.Exists(PluginPaths.InternalStartupInstructionPath))
             {
                 SendLog("Running Start Actions..");
@@ -150,7 +151,6 @@ namespace PluginSystem.Core
             SendLogDivider();
 
             //Everything Finished
-            OnInitialized?.Invoke();
             SendLog("Initialization Complete.");
             SendLogDivider();
         }
