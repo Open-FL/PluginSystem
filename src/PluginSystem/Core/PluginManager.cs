@@ -745,7 +745,7 @@ namespace PluginSystem.Core
 
                     //UnloadPlugins(PluginHost);
 
-                    LoadPlugins(PluginHost);
+                    //LoadPlugins(PluginHost);
 
                     AfterActivatePackage?.Invoke(new ActivatePackageEventArgs(packageKey, false));
                 }
