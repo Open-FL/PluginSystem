@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using PluginSystem.Core.Pointer;
 using PluginSystem.FileSystem.Packer;
@@ -26,6 +27,7 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
             string zip = WebPointerUpdateChecker.DownloadFile(ptr);
             ZipPackerFormat packer = new ZipPackerFormat();
             packer.Unpack(zip, outputDirectory);
+            File.Delete(zip);
         }
 
     }

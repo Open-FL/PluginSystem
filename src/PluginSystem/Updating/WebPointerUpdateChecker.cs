@@ -47,6 +47,8 @@ namespace PluginSystem.Updating
                 DownloadFile(originPtr, tempFile);
 
                 PluginManager.AddPackage(tempFile, out string name);
+
+                File.Delete(tempFile);
             }
             else
             {

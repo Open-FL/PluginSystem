@@ -647,6 +647,9 @@ namespace PluginSystem.Core
                         }
 
                         PackageDataManager.Install(ptr, tempDir);
+
+                        Directory.Delete(tempDir, true);
+
                         AfterInstallPackage?.Invoke(new InstallPackageEventArgs(isNew, ptr, tempDir, false));
 
                         AfterAddPackage?.Invoke(new AfterAddPackageEventArgs(ptr));
