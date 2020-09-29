@@ -13,6 +13,7 @@ namespace PluginSystem.DefaultPlugins.Formats
 {
     public static class HelperClass
     {
+
         internal static void ReloadDefaultPlugins()
         {
             PluginManager.AddPlugin(
@@ -71,7 +72,7 @@ namespace PluginSystem.DefaultPlugins.Formats
                                                              )
                                    );
             PluginManager.AddPlugin(
-                                    new URLPackerFormat(), 
+                                    new URLPackerFormat(),
                                     new PluginAssemblyPointer(
                                                               "plugin-format-url-packer",
                                                               "",

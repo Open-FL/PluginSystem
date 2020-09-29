@@ -3,24 +3,25 @@ using System.Linq;
 
 using PluginSystem.Core;
 using PluginSystem.Core.Pointer;
+using PluginSystem.Events.Args;
 using PluginSystem.FileSystem;
 using PluginSystem.Utility;
 
 namespace PluginSystem.Loading.Ordering
 {
     /// <summary>
-    /// Helper Class that manages the Load Order
+    ///     Helper Class that manages the Load Order
     /// </summary>
     public static class LoadOrder
     {
 
         /// <summary>
-        /// The Load Order Queues
+        ///     The Load Order Queues
         /// </summary>
         private static string[] Queues => new[] { PluginPaths.LoadOrderListFile };
 
         /// <summary>
-        /// Returns the Load Order List of the Specified Queue
+        ///     Returns the Load Order List of the Specified Queue
         /// </summary>
         /// <param name="queue">The Queue Specified</param>
         /// <returns>Load Order List</returns>
@@ -30,7 +31,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Saves the Load Order List of the Specified Queue
+        ///     Saves the Load Order List of the Specified Queue
         /// </summary>
         /// <param name="queue">The Queue Specified</param>
         /// <param name="value">The new Load Order List</param>
@@ -40,7 +41,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Initialize Function
+        ///     Initialize Function
         /// </summary>
         internal static void Initialize()
         {
@@ -49,24 +50,26 @@ namespace PluginSystem.Loading.Ordering
             PluginManager.AfterActivatePackage += PluginManager_AfterActivatePackage;
         }
 
-        private static void PluginManager_AfterActivatePackage(Events.Args.ActivatePackageEventArgs eventArgs)
+        private static void PluginManager_AfterActivatePackage(ActivatePackageEventArgs eventArgs)
         {
             List<string> lst = GetLoadOrderList(LoadOrderQueue.Default);
             List<BasePluginPointer> dependentPlugins =
-                ListHelper.LoadList(PluginPaths.GlobalPluginListFile).Select(x=>new BasePluginPointer(x)).Where(x => x.Dependencies.Contains(eventArgs.PackagePointer.PluginName)).ToList();
+                ListHelper.LoadList(PluginPaths.GlobalPluginListFile).Select(x => new BasePluginPointer(x))
+                          .Where(x => x.Dependencies.Contains(eventArgs.PackagePointer.PluginName)).ToList();
 
             foreach (BasePluginPointer dependentPlugin in dependentPlugins)
             {
                 lst.Remove(dependentPlugin.PluginName);
                 lst.Add(dependentPlugin.PluginName);
             }
+
             SetLoadOrderList(LoadOrderQueue.Default, lst);
         }
 
         /// <summary>
-        /// Makes sure that the Load Order is set for each plugin that is installed.
+        ///     Makes sure that the Load Order is set for each plugin that is installed.
         /// </summary>
-        private static void PluginManager_AfterRegisterHost(Events.Args.RegisterHostEventArgs eventArgs)
+        private static void PluginManager_AfterRegisterHost(RegisterHostEventArgs eventArgs)
         {
             List<string> lst = GetLoadOrderList(LoadOrderQueue.Default);
             List<string> l = ListHelper.LoadList(PluginPaths.GlobalPluginListFile)
@@ -76,9 +79,9 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Add to load order list after installing the Package
+        ///     Add to load order list after installing the Package
         /// </summary>
-        private static void PluginManager_AfterInstallPackage(Events.Args.InstallPackageEventArgs eventArgs)
+        private static void PluginManager_AfterInstallPackage(InstallPackageEventArgs eventArgs)
         {
             List<string> lo = GetLoadOrderList(LoadOrderQueue.Default);
             if (!lo.Contains(eventArgs.Data.PluginName))
@@ -89,7 +92,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Sorts the Input lists so that the Highest Priority Plugin is at the top
+        ///     Sorts the Input lists so that the Highest Priority Plugin is at the top
         /// </summary>
         /// <param name="ptr">Pointer List</param>
         public static void SortList(List<PluginAssemblyPointer> ptr)
@@ -116,7 +119,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Checks if the Plugin is set in the specified queue.
+        ///     Checks if the Plugin is set in the specified queue.
         /// </summary>
         /// <param name="queue">The Queue</param>
         /// <param name="pluginName">The Plugin to be checked</param>
@@ -127,7 +130,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Moves the Specified Plugin up one Entry
+        ///     Moves the Specified Plugin up one Entry
         /// </summary>
         /// <param name="queue">The Queue</param>
         /// <param name="pluginName">The Plugin to be moved.</param>
@@ -154,7 +157,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Moves the Specified Plugin down one Entry
+        ///     Moves the Specified Plugin down one Entry
         /// </summary>
         /// <param name="queue">The Queue</param>
         /// <param name="pluginName">The Plugin to be moved.</param>
@@ -180,7 +183,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Moves the Specified Plugin to the top
+        ///     Moves the Specified Plugin to the top
         /// </summary>
         /// <param name="queue">The Queue</param>
         /// <param name="pluginName">The Plugin to be moved.</param>
@@ -204,7 +207,7 @@ namespace PluginSystem.Loading.Ordering
         }
 
         /// <summary>
-        /// Moves the Specified Plugin to the bottom
+        ///     Moves the Specified Plugin to the bottom
         /// </summary>
         /// <param name="queue">The Queue</param>
         /// <param name="pluginName">The Plugin to be moved.</param>

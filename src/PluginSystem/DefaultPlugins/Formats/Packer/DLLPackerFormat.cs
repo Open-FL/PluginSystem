@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 
 using PluginSystem.Core;
-using PluginSystem.Core.Interfaces;
 using PluginSystem.FileSystem.Packer;
-using PluginSystem.Loading.Plugins;
 
 namespace PluginSystem.DefaultPlugins.Formats.Packer
 {
@@ -21,7 +17,7 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
 
         public override string[] Pack(string inputFolder, string outputFolder)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void Unpack(string file, string outputDirectory)
@@ -33,9 +29,8 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
             Directory.CreateDirectory(binDir);
             Directory.CreateDirectory(confDir);
             File.Copy(file, targetAssembly);
-            
-            string pluginAssembly = Path.GetFileName(file);
 
+            string pluginAssembly = Path.GetFileName(file);
 
 
             File.WriteAllText(

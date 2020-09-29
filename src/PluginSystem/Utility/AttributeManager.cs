@@ -15,12 +15,12 @@ namespace PluginSystem.Utility
         public static readonly List<IAttributeHandler<Attribute>> Handlers = new List<IAttributeHandler<Attribute>>();
 
         /// <summary>
-        /// Count of Installed Packer Formats
+        ///     Count of Installed Packer Formats
         /// </summary>
         public static int FormatCount => Handlers.Count;
 
         /// <summary>
-        /// Adds a Packer Format to the system
+        ///     Adds a Packer Format to the system
         /// </summary>
         /// <param name="formatProvider">The format to be added.</param>
         public static void AddAttributeHandler(IAttributeHandler<Attribute> formatProvider)
@@ -39,7 +39,7 @@ namespace PluginSystem.Utility
         }
 
         /// <summary>
-        /// Removes a Packer Format from the system
+        ///     Removes a Packer Format from the system
         /// </summary>
         /// <param name="formatProvider">The format to be removed.</param>
         public static void RemoveAttributeHandler(IAttributeHandler<Attribute> formatProvider)

@@ -22,31 +22,32 @@ using PluginSystem.Utility;
 namespace PluginSystem.Core
 {
     /// <summary>
-    /// Main Class used to Interface with the PluginSystem
+    ///     Main Class used to Interface with the PluginSystem
     /// </summary>
     public static class PluginManager
     {
 
         /// <summary>
-        /// Map of Plugins that are loaded for a Plugin Host
+        ///     Map of Plugins that are loaded for a Plugin Host
         /// </summary>
         internal static readonly Dictionary<IPluginHost, List<IPlugin>> LoadedPlugins =
             new Dictionary<IPluginHost, List<IPlugin>>();
 
-        internal static readonly Dictionary<IPlugin, PluginAssemblyPointer> PointerMap = new Dictionary<IPlugin, PluginAssemblyPointer>();
+        internal static readonly Dictionary<IPlugin, PluginAssemblyPointer> PointerMap =
+            new Dictionary<IPlugin, PluginAssemblyPointer>();
 
         /// <summary>
-        /// The Plugin System Host instance that is used to be able to register a Plugin targeting this Library
+        ///     The Plugin System Host instance that is used to be able to register a Plugin targeting this Library
         /// </summary>
         public static PluginSystemHost PluginHost { get; private set; }
 
         /// <summary>
-        /// Flag that indicates if the Plugin System is initialized.
+        ///     Flag that indicates if the Plugin System is initialized.
         /// </summary>
         public static bool IsInitialized { get; private set; }
 
         /// <summary>
-        /// Cleans all Temp Files from plugins and the System itself.
+        ///     Cleans all Temp Files from plugins and the System itself.
         /// </summary>
         public static void CleanTempDirectory()
         {
@@ -75,12 +76,17 @@ namespace PluginSystem.Core
         {
             string[] list = ListHelper.LoadList(PluginPaths.GlobalPluginListFile);
             string item = list.FirstOrDefault(x => x.StartsWith(name + StaticData.KeyPairSeparator));
-            if (item == null) return null;
+            if (item == null)
+            {
+                return null;
+            }
+
             return new BasePluginPointer(item);
         }
 
         public static void Initialize(
-            string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus, string staticDataConfig = null)
+            string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog,
+            Action<string, int, int> setStatus, string staticDataConfig = null)
         {
             if (!Directory.Exists(rootPath))
             {
@@ -97,11 +103,13 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Initializes the Plugin System.
+        ///     Initializes the Plugin System.
         /// </summary>
         /// <param name="internalConfigPath">The Path that is used by internal config files by the Plugin System</param>
         /// <param name="pluginDirectory">The Path used as "Install Directory" for Plugins/Packages</param>
-        public static void Initialize(string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus, string staticDataConfig = null)
+        public static void Initialize(
+            string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog,
+            Action<string, int, int> setStatus, string staticDataConfig = null)
         {
             if (IsInitialized)
             {
@@ -158,7 +166,7 @@ namespace PluginSystem.Core
         #region Events
 
         /// <summary>
-        /// Default Log Handler, (uses Console.WriteLine)
+        ///     Default Log Handler, (uses Console.WriteLine)
         /// </summary>
         /// <param name="eventArgs">Log Message Event Argument</param>
         private static void DefaultLogHandler(LogMessageEventArgs eventArgs)
@@ -167,12 +175,12 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// OnError Event Delegate
+        ///     OnError Event Delegate
         /// </summary>
         private static event PluginEvents.OnErrorEvent OnError;
 
         /// <summary>
-        /// Sends an Error Event through the PluginSystem OnError Handler
+        ///     Sends an Error Event through the PluginSystem OnError Handler
         /// </summary>
         /// <param name="eventArgs">The Error</param>
         public static void SendError(PluginException eventArgs)
@@ -181,7 +189,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Replaces the Current Error Handler.
+        ///     Replaces the Current Error Handler.
         /// </summary>
         /// <param name="onError">The new Error Handler</param>
         public static void RegisterErrorHandler(PluginEvents.OnErrorEvent onError)
@@ -190,12 +198,12 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// OnLog Event Delegate
+        ///     OnLog Event Delegate
         /// </summary>
         public static event PluginEvents.LogMessageEvent OnLog = DefaultLogHandler;
 
         /// <summary>
-        /// Writes a Log through the PluginSystem OnLog Handler
+        ///     Writes a Log through the PluginSystem OnLog Handler
         /// </summary>
         /// <param name="args">The Log to Write</param>
         public static void SendLog(LogMessageEventArgs args)
@@ -204,7 +212,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Helper Function that Creates a Divider in the Log
+        ///     Helper Function that Creates a Divider in the Log
         /// </summary>
         public static void SendLogDivider()
         {
@@ -212,112 +220,115 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// On Clean Temp Folder Event is called before the System is deleting all content in the Internal Temp Folder and all Plugin Temp Folders.
+        ///     On Clean Temp Folder Event is called before the System is deleting all content in the Internal Temp Folder and all
+        ///     Plugin Temp Folders.
         /// </summary>
         public static event PluginEvents.OnCleanTempFolderEvent OnCleanTempFolder;
 
         /// <summary>
-        /// After Clean Temp Folder Event is called after the System has deleted all content in the Internal Temp Folder and all Plugin Temp Folders.
+        ///     After Clean Temp Folder Event is called after the System has deleted all content in the Internal Temp Folder and
+        ///     all Plugin Temp Folders.
         /// </summary>
         public static event PluginEvents.AfterCleanTempFolderEvent AfterCleanTempFolder;
 
         /// <summary>
-        /// On Initialized Event is called after all Initializations Finished.
+        ///     On Initialized Event is called after all Initializations Finished.
         /// </summary>
         public static event PluginEvents.OnInitializedEvent OnInitialized;
 
         /// <summary>
-        /// On Register Host Event is called before a Host gets Registered/Plugins for this Host are getting loaded.
+        ///     On Register Host Event is called before a Host gets Registered/Plugins for this Host are getting loaded.
         /// </summary>
         public static event PluginEvents.OnRegisterHostEvent OnRegisterHost;
 
         /// <summary>
-        /// After Register Host Event is called after a Host gets Registered/Plugins for this Host were loaded.
+        ///     After Register Host Event is called after a Host gets Registered/Plugins for this Host were loaded.
         /// </summary>
         public static event PluginEvents.AfterRegisterHostEvent AfterRegisterHost;
 
         /// <summary>
-        /// On UnRegister Host Event is called before a Host gets UnRegistered/Plugins for this Host are getting unloaded.
+        ///     On UnRegister Host Event is called before a Host gets UnRegistered/Plugins for this Host are getting unloaded.
         /// </summary>
         public static event PluginEvents.OnUnRegisterHostEvent OnUnRegisterHost;
 
         /// <summary>
-        /// After UnRegister Host Event is called after a Host gets UnRegistered/Plugins for this Host were unloaded.
+        ///     After UnRegister Host Event is called after a Host gets UnRegistered/Plugins for this Host were unloaded.
         /// </summary>
         public static event PluginEvents.AfterUnRegisterHostEvent AfterUnRegisterHost;
 
         /// <summary>
-        /// On Add Plugin Event is called before a Plugin gets added to a Host.
+        ///     On Add Plugin Event is called before a Plugin gets added to a Host.
         /// </summary>
         public static event PluginEvents.OnAddPluginEvent OnAddPlugin;
 
         /// <summary>
-        /// After Add Plugin Event is called after a Plugin got added to a Host.
+        ///     After Add Plugin Event is called after a Plugin got added to a Host.
         /// </summary>
         public static event PluginEvents.AfterAddPluginEvent AfterAddPlugin;
 
         /// <summary>
-        /// On Remove Plugin Event is called before a Plugin gets removed from a Host.
+        ///     On Remove Plugin Event is called before a Plugin gets removed from a Host.
         /// </summary>
         public static event PluginEvents.OnRemovePluginEvent OnRemovePlugin;
 
         /// <summary>
-        /// After Remove Plugin Event is called after a Plugin got removed from a Host.
+        ///     After Remove Plugin Event is called after a Plugin got removed from a Host.
         /// </summary>
         public static event PluginEvents.AfterRemovePluginEvent AfterRemovePlugin;
 
         /// <summary>
-        /// On Add Package Event is called before a Package gets added to the Plugin Folder Structure.
+        ///     On Add Package Event is called before a Package gets added to the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.OnAddPackageEvent OnAddPackage;
 
         /// <summary>
-        /// On Add Package Pointer Loaded Event is called before a Package gets added to the Plugin Folder Structure but the Pointer was successfully loaded.
+        ///     On Add Package Pointer Loaded Event is called before a Package gets added to the Plugin Folder Structure but the
+        ///     Pointer was successfully loaded.
         /// </summary>
         public static event PluginEvents.OnAddPackagePointerLoadedEvent OnAddPackagePointerLoaded;
 
         /// <summary>
-        /// After Add Package Event is called after a Package got added to the Plugin Folder Structure.
+        ///     After Add Package Event is called after a Package got added to the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.AfterAddPackageEvent AfterAddPackage;
 
         /// <summary>
-        /// On Install Package Event is called before a Package gets installed into the Plugin Folder Structure.
+        ///     On Install Package Event is called before a Package gets installed into the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.OnInstallPackageEvent OnInstallPackage;
 
         /// <summary>
-        /// After Install Package Event is called after a Package got installed into the Plugin Folder Structure.
+        ///     After Install Package Event is called after a Package got installed into the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.AfterInstallPackageEvent AfterInstallPackage;
 
         /// <summary>
-        /// On Remove Package Event is called before a Package is removed from the Plugin Folder Structure.
+        ///     On Remove Package Event is called before a Package is removed from the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.OnRemovePackageEvent OnRemovePackage;
 
         /// <summary>
-        /// After Remove Package Event is called after a Package was removed from the Plugin Folder Structure.
+        ///     After Remove Package Event is called after a Package was removed from the Plugin Folder Structure.
         /// </summary>
         public static event PluginEvents.AfterRemovePackageEvent AfterRemovePackage;
 
         /// <summary>
-        /// On Activate Package Event is called before a Package is Activated.
+        ///     On Activate Package Event is called before a Package is Activated.
         /// </summary>
         public static event PluginEvents.OnActivatePackageEvent OnActivatePackage;
 
         /// <summary>
-        /// After Activate Package Event is called after a Package was Activated.
+        ///     After Activate Package Event is called after a Package was Activated.
         /// </summary>
         public static event PluginEvents.AfterActivatePackageEvent AfterActivatePackage;
 
         /// <summary>
-        /// On Deactivate Package Event is called before a Package is Deactivated.
+        ///     On Deactivate Package Event is called before a Package is Deactivated.
         /// </summary>
         public static event PluginEvents.OnDeactivatePackageEvent OnDeactivatePackage;
 
         /// <summary>
-        /// After Deactivate Package Event is called after a Package was Deactivated.
+        ///     After Deactivate Package Event is called after a Package was Deactivated.
         /// </summary>
         public static event PluginEvents.AfterDeactivatePackageEvent AfterDeactivatePackage;
 
@@ -326,7 +337,7 @@ namespace PluginSystem.Core
         #region Loading and Unloading a Host
 
         /// <summary>
-        /// Loads all compatible Plugins that are installed in the system.
+        ///     Loads all compatible Plugins that are installed in the system.
         /// </summary>
         /// <param name="host">The Host that the Plugins need to be Compatible to</param>
         public static void LoadPlugins(IPluginHost host, bool addPlugins = true)
@@ -373,7 +384,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Unloads all Plugins from the Host.
+        ///     Unloads all Plugins from the Host.
         /// </summary>
         /// <param name="host">The Host should be UnLoaded.</param>
         public static void UnloadPlugins(IPluginHost host)
@@ -421,7 +432,7 @@ namespace PluginSystem.Core
         #region Adding Removing a Plugin from a host
 
         /// <summary>
-        /// Adds a Plugin to the Host specified in the PluginPointer Data
+        ///     Adds a Plugin to the Host specified in the PluginPointer Data
         /// </summary>
         /// <param name="plugin">Plugin to Add</param>
         /// <param name="data">The Plugin Pointer</param>
@@ -527,7 +538,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Removes a Plugin from a Host
+        ///     Removes a Plugin from a Host
         /// </summary>
         /// <param name="host">Target Host</param>
         /// <param name="plugin">Plugin to Remove</param>
@@ -561,7 +572,7 @@ namespace PluginSystem.Core
         #region Adding Removing a Plugin Package
 
         /// <summary>
-        /// Adds a Package to the Plugin System
+        ///     Adds a Package to the Plugin System
         /// </summary>
         /// <param name="file">Package Input Path</param>
         /// <param name="name">When Loaded successfully contains the Name of the Loaded plugin</param>
@@ -631,9 +642,11 @@ namespace PluginSystem.Core
                                 activePackages.Add(newPackage);
                                 ListHelper.SaveList(PluginPaths.PluginListFile, activePackages.ToArray());
                             }
+
                             installedPackages.RemoveAll(x => x.StartsWith(ptr.PluginName));
                             installedPackages.Add(newPackage);
                         }
+
                         ListHelper.SaveList(PluginPaths.GlobalPluginListFile, installedPackages.ToArray());
 
                         //TODO: Check if the Install would overwrite things.
@@ -672,7 +685,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Removes a Package from the Plugin System
+        ///     Removes a Package from the Plugin System
         /// </summary>
         /// <param name="ptr">Pointer Pointing to the Package that should be removed.</param>
         /// <param name="keepArchive">When set to false will also delete the backup archive.</param>
@@ -702,7 +715,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Activates a Package in the Plugin System.
+        ///     Activates a Package in the Plugin System.
         /// </summary>
         /// <param name="packageName">The Package to be activated.</param>
         /// <param name="addToExistingHosts">When True will add all plugins in the Package to Compatible Loaded Hosts.</param>
@@ -755,12 +768,15 @@ namespace PluginSystem.Core
         internal static void DeactivatePackage(IPlugin plugin)
         {
             if (!PointerMap.ContainsKey(plugin))
+            {
                 throw new ArgumentException("Internal data Corrupt.");
+            }
+
             DeactivatePackage(PointerMap[plugin].PluginName);
         }
 
         /// <summary>
-        /// Deactivates a Package so its plugins are not considered when searching for compatible plugins for a Host.
+        ///     Deactivates a Package so its plugins are not considered when searching for compatible plugins for a Host.
         /// </summary>
         /// <param name="packageName">Name of package that should be deactivated.</param>
         internal static void DeactivatePackage(string packageName)
@@ -788,7 +804,7 @@ namespace PluginSystem.Core
         #region GetPluginQueries
 
         /// <summary>
-        /// Returns all Hosts that are Assignable to T
+        ///     Returns all Hosts that are Assignable to T
         /// </summary>
         /// <typeparam name="T">"Minimum" Type</typeparam>
         /// <returns>List of Hosts that are of Type T</returns>
@@ -807,7 +823,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Returns all Plugins that are Assignable to T
+        ///     Returns all Plugins that are Assignable to T
         /// </summary>
         /// <typeparam name="T">"Minimum" Type</typeparam>
         /// <returns>List of Plugins that are of Type T</returns>
@@ -823,7 +839,7 @@ namespace PluginSystem.Core
         }
 
         /// <summary>
-        /// Returns all Plugins that are Assignable to T and are Added to a specific host.
+        ///     Returns all Plugins that are Assignable to T and are Added to a specific host.
         /// </summary>
         /// <typeparam name="T">"Minimum" Type</typeparam>
         /// <param name="host">The Host</param>
@@ -843,8 +859,8 @@ namespace PluginSystem.Core
         #region Private Functions
 
         /// <summary>
-        /// Ensures that the Directory structure of a Pointer exists.
-        /// Loads all Plugins From a Pointer.
+        ///     Ensures that the Directory structure of a Pointer exists.
+        ///     Loads all Plugins From a Pointer.
         /// </summary>
         /// <param name="data">The Pointer to load.</param>
         private static void AddFromLoaderResult(PluginAssemblyPointer data)
@@ -855,7 +871,7 @@ namespace PluginSystem.Core
 
 
         /// <summary>
-        /// Returns a List of Plugin Pointer based on a List path and a Host.
+        ///     Returns a List of Plugin Pointer based on a List path and a Host.
         /// </summary>
         /// <param name="path">The Path of the List File</param>
         /// <param name="host">Host Instance</param>

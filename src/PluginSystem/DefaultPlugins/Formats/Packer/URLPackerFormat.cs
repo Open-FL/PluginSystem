@@ -12,13 +12,17 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
 
         public override bool CanLoad(string file)
         {
-            if (file == "" || !file.EndsWith("info.txt")) return false;
+            if (file == "" || !file.EndsWith("info.txt"))
+            {
+                return false;
+            }
+
             return WebPointerUpdateChecker.IsWebPointer(new Uri(file));
         }
 
         public override string[] Pack(string inputFolder, string outputFolder)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override void Unpack(string file, string outputDirectory)

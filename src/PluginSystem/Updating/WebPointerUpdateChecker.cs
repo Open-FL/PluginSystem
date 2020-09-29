@@ -11,20 +11,19 @@ namespace PluginSystem.Updating
     public class WebPointerUpdateChecker : IPluginUpdateChecker
     {
 
-        public static bool IsWebPointer(Uri origin)
-        {
-            return origin.Scheme == "http" || origin.Scheme == "https";
-        }
-
         public bool CanCheck(BasePluginPointer ptr)
         {
-            if (ptr.PluginOrigin == "" || !ptr.PluginOrigin.EndsWith("info.txt")) return false;
+            if (ptr.PluginOrigin == "" || !ptr.PluginOrigin.EndsWith("info.txt"))
+            {
+                return false;
+            }
 
             Uri origin = ptr.PluginOriginUri;
             return IsWebPointer(origin);
         }
 
-        public void CheckAndUpdate(BasePluginPointer ptr, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus)
+        public void CheckAndUpdate(
+            BasePluginPointer ptr, Func<string, string, bool> updateDialog, Action<string, int, int> setStatus)
         {
             setStatus?.Invoke($"[{ptr.PluginName}] Searching Updates.", 0, 1);
             BasePluginPointer originPtr = GetPointer(ptr.PluginOrigin);
@@ -34,13 +33,17 @@ namespace PluginSystem.Updating
                 setStatus?.Invoke($"[{ptr.PluginName}] Up to date.", 1, 1);
                 return;
             }
+
             setStatus?.Invoke($"[{ptr.PluginName}] Waiting for User Input", 1, 3);
             if (updateDialog(
                              $"Do you want to update {ptr.PluginName} : {ptr.PluginVersion} to {originPtr.PluginName} : {originPtr.PluginVersion}?",
                              $"Update: {originPtr.PluginVersion}"
                             ))
             {
-                string tempFile = Path.Combine(PluginPaths.GetPluginTempDirectory(ptr), $"{originPtr.PluginName}_{originPtr.PluginVersion}_.zip");
+                string tempFile = Path.Combine(
+                                               PluginPaths.GetPluginTempDirectory(ptr),
+                                               $"{originPtr.PluginName}_{originPtr.PluginVersion}_.zip"
+                                              );
 
                 setStatus?.Invoke($"[{ptr.PluginName}] Installing Update", 1, 3);
 
@@ -56,6 +59,11 @@ namespace PluginSystem.Updating
             }
         }
 
+        public static bool IsWebPointer(Uri origin)
+        {
+            return origin.Scheme == "http" || origin.Scheme == "https";
+        }
+
         public static void DownloadFile(BasePluginPointer ptr, string file)
         {
             using (WebClient wc = new WebClient())
@@ -64,14 +72,19 @@ namespace PluginSystem.Updating
                                                                     ptr.PluginOriginUri.AbsoluteUri.Length -
                                                                     "info.txt".Length,
                                                                     "info.txt".Length
-                                                                   ) + ptr.PluginName + ".zip";
+                                                                   ) +
+                             ptr.PluginName +
+                             ".zip";
                 wc.DownloadFile(uri, file);
             }
         }
 
         public static string DownloadFile(BasePluginPointer ptr)
         {
-            string tempFile = Path.Combine(PluginPaths.SystemTempDirectory, $"{ptr.PluginName}_{ptr.PluginVersion}_.zip");
+            string tempFile = Path.Combine(
+                                           PluginPaths.SystemTempDirectory,
+                                           $"{ptr.PluginName}_{ptr.PluginVersion}_.zip"
+                                          );
             DownloadFile(ptr, tempFile);
             return tempFile;
         }

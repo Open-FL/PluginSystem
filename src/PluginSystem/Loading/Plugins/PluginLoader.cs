@@ -15,7 +15,7 @@ namespace PluginSystem.Loading.Plugins
     {
 
         /// <summary>
-        /// Adds All Plugins that are compatible to the Host Specified in data.Host
+        ///     Adds All Plugins that are compatible to the Host Specified in data.Host
         /// </summary>
         /// <param name="data">The Assembly Data</param>
         public static void AddPluginsFromLoaderResult(PluginAssemblyPointer data)
@@ -29,7 +29,7 @@ namespace PluginSystem.Loading.Plugins
         }
 
         /// <summary>
-        /// Returns Instances of the specified types.
+        ///     Returns Instances of the specified types.
         /// </summary>
         /// <typeparam name="T">The Common Type between the types in the types array.</typeparam>
         /// <param name="types">The types that should be created.</param>
@@ -40,7 +40,7 @@ namespace PluginSystem.Loading.Plugins
         }
 
         /// <summary>
-        /// Loads all Plugins that are compatible to a Host
+        ///     Loads all Plugins that are compatible to a Host
         /// </summary>
         /// <param name="data">The Pointer to the Package that should be searched.</param>
         /// <returns>Plugin Loader Result containing the Plugins</returns>
@@ -88,7 +88,7 @@ namespace PluginSystem.Loading.Plugins
         }
 
         /// <summary>
-        /// Loads a C# Assembly From file.
+        ///     Loads a C# Assembly From file.
         /// </summary>
         /// <param name="file"></param>
         /// <returns>Loaded Assembly</returns>
@@ -113,7 +113,7 @@ namespace PluginSystem.Loading.Plugins
         }
 
         /// <summary>
-        /// Loads a C# Assembly from a Pointer
+        ///     Loads a C# Assembly from a Pointer
         /// </summary>
         /// <param name="data">Pointer Data</param>
         /// <returns>Loaded Assembly</returns>
@@ -124,7 +124,7 @@ namespace PluginSystem.Loading.Plugins
 
 
         /// <summary>
-        /// Returns all types that inherit a specific interface, are not abstract and not an interface themselves.
+        ///     Returns all types that inherit a specific interface, are not abstract and not an interface themselves.
         /// </summary>
         /// <param name="types">Types to check</param>
         /// <param name="interfaceT">Target Type</param>
@@ -183,7 +183,7 @@ namespace PluginSystem.Loading.Plugins
         }
 
         /// <summary>
-        /// Returns all types that inherit a specific interface, are not abstract and not an interface themselves.
+        ///     Returns all types that inherit a specific interface, are not abstract and not an interface themselves.
         /// </summary>
         /// <param name="asm">Assembly containing the Types to check</param>
         /// <param name="interfaceT">Target Type</param>

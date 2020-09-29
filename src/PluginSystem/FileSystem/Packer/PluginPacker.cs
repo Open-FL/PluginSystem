@@ -7,23 +7,23 @@ using PluginSystem.Core;
 namespace PluginSystem.FileSystem.Packer
 {
     /// <summary>
-    /// Packer Class Providing all Package Formats
+    ///     Packer Class Providing all Package Formats
     /// </summary>
     public static class PluginPacker
     {
 
         /// <summary>
-        /// Installed Packer Formats
+        ///     Installed Packer Formats
         /// </summary>
         private static readonly List<APluginPackerFormat> PackerMap = new List<APluginPackerFormat>();
 
         /// <summary>
-        /// Count of Installed Packer Formats
+        ///     Count of Installed Packer Formats
         /// </summary>
         public static int FormatCount => PackerMap.Count;
 
         /// <summary>
-        /// Adds a Packer Format to the system
+        ///     Adds a Packer Format to the system
         /// </summary>
         /// <param name="formatProvider">The format to be added.</param>
         public static void AddPackerFormat(APluginPackerFormat formatProvider)
@@ -36,7 +36,7 @@ namespace PluginSystem.FileSystem.Packer
         }
 
         /// <summary>
-        /// Removes a Packer Format from the system
+        ///     Removes a Packer Format from the system
         /// </summary>
         /// <param name="formatProvider">The format to be removed.</param>
         public static void RemovePackerFormat(APluginPackerFormat formatProvider)
@@ -49,7 +49,7 @@ namespace PluginSystem.FileSystem.Packer
         }
 
         /// <summary>
-        /// Checks if the System can Load the Specified File
+        ///     Checks if the System can Load the Specified File
         /// </summary>
         /// <param name="file">File to check.</param>
         /// <returns>True if a Format can load the Type of File</returns>
@@ -59,7 +59,7 @@ namespace PluginSystem.FileSystem.Packer
         }
 
         /// <summary>
-        /// Unpacks a File into an Output Directory
+        ///     Unpacks a File into an Output Directory
         /// </summary>
         /// <param name="file">File to Unpack</param>
         /// <param name="outputDirectory">Output Directory</param>
@@ -73,7 +73,7 @@ namespace PluginSystem.FileSystem.Packer
         }
 
         /// <summary>
-        /// Returns the Format at Index I
+        ///     Returns the Format at Index I
         /// </summary>
         /// <param name="i">Index of the Format.</param>
         /// <returns>The Format located at the specfied index i</returns>

@@ -8,13 +8,13 @@ using PluginSystem.Exceptions;
 namespace PluginSystem.Utility
 {
     /// <summary>
-    /// Helper Class that loads/saves a List from/to file.
+    ///     Helper Class that loads/saves a List from/to file.
     /// </summary>
     public static class ListHelper
     {
 
         /// <summary>
-        /// Load all Lines of a File.
+        ///     Load all Lines of a File.
         /// </summary>
         /// <param name="path">Path to the file.</param>
         /// <returns>The File Content</returns>
@@ -32,7 +32,7 @@ namespace PluginSystem.Utility
         }
 
         /// <summary>
-        /// Saves all Lines to a File.
+        ///     Saves all Lines to a File.
         /// </summary>
         /// <param name="path">Target Path</param>
         /// <param name="list">Content</param>

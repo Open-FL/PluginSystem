@@ -8,24 +8,24 @@ using PluginSystem.Core.Pointer;
 namespace PluginSystem.FileSystem
 {
     /// <summary>
-    /// Class used to Query File Paths for Plugins
+    ///     Class used to Query File Paths for Plugins
     /// </summary>
     public static class PluginPaths
     {
 
         //Plugin Initial Loading Files
         /// <summary>
-        /// The Internal System Config Path set by The PackageManager.Initialize Function
+        ///     The Internal System Config Path set by The PackageManager.Initialize Function
         /// </summary>
         public static string InternalSystemConfigPath { get; internal set; }
 
         /// <summary>
-        /// The Plugin Path set by The PackageManager.Initialize Function
+        ///     The Plugin Path set by The PackageManager.Initialize Function
         /// </summary>
         public static string PluginDirectory { get; internal set; }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin List File
+        ///     Returns the Full Path to the Plugin List File
         /// </summary>
         public static string PluginListFile =>
             Path.Combine(
@@ -35,7 +35,7 @@ namespace PluginSystem.FileSystem
                         );
 
         /// <summary>
-        /// Returns the Full Path to the Global Plugin List File
+        ///     Returns the Full Path to the Global Plugin List File
         /// </summary>
         public static string GlobalPluginListFile =>
             Path.Combine(
@@ -45,7 +45,7 @@ namespace PluginSystem.FileSystem
                         );
 
         /// <summary>
-        /// Returns the Full Path to the Init Plugin List File
+        ///     Returns the Full Path to the Init Plugin List File
         /// </summary>
         public static string InitPluginListFile =>
             Path.Combine(
@@ -62,7 +62,7 @@ namespace PluginSystem.FileSystem
                         );
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Load Order List File
+        ///     Returns the Full Path to the Plugin Load Order List File
         /// </summary>
         public static string LoadOrderListFile =>
             Path.Combine(
@@ -73,12 +73,12 @@ namespace PluginSystem.FileSystem
 
 
         /// <summary>
-        /// Returns the Full Path to the System Temp Directory
+        ///     Returns the Full Path to the System Temp Directory
         /// </summary>
         public static string SystemTempDirectory => Path.Combine(InternalSystemConfigPath, StaticData.TempFolder);
 
         /// <summary>
-        /// Returns the Full Path to the Assembly File of the Plugin
+        ///     Returns the Full Path to the Assembly File of the Plugin
         /// </summary>
         /// <param name="name">Plugin Name</param>
         /// <param name="file">Plugin File</param>
@@ -89,7 +89,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Assembly File of the Plugin
+        ///     Returns the Full Path to the Assembly File of the Plugin
         /// </summary>
         /// <param name="data">The plugin Data</param>
         /// <returns>Plugin Assembly File</returns>
@@ -99,7 +99,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the System Temp Directory
+        ///     Returns the Full Path to the System Temp Directory
         /// </summary>
         /// <param name="process">The System Process Name</param>
         /// <returns>System Temp Directory</returns>
@@ -110,7 +110,7 @@ namespace PluginSystem.FileSystem
 
 
         /// <summary>
-        /// Creates all required directories for the Specified Plugin
+        ///     Creates all required directories for the Specified Plugin
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         public static void EnsureDirectoriesExist(this BasePluginPointer data)
@@ -154,7 +154,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Deletes all directories of the Specified Plugin
+        ///     Deletes all directories of the Specified Plugin
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         /// <param name="keepArchive">If true will not Delete the backup archive</param>
@@ -170,7 +170,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Reads text from a file, if it fails returns the fallbackContent
+        ///     Reads text from a file, if it fails returns the fallbackContent
         /// </summary>
         /// <param name="path">The Path of the File</param>
         /// <param name="fallbackContent">The Fallback content used if the Loading Failed.</param>
@@ -188,14 +188,14 @@ namespace PluginSystem.FileSystem
         #region Directories
 
         /// <summary>
-        /// Returns the Full Path to the Application Entry Directory
+        ///     Returns the Full Path to the Application Entry Directory
         /// </summary>
         /// <returns>Application Entry Directory</returns>
         public static string EntryDirectory =>
             Path.GetDirectoryName(new Uri(Assembly.GetEntryAssembly().CodeBase).AbsolutePath);
 
         /// <summary>
-        /// Returns the Full Path to the Default System Config Directory
+        ///     Returns the Full Path to the Default System Config Directory
         /// </summary>
         /// <param name="baseDir">Base Directory</param>
         /// <param name="name">Name of the Application</param>
@@ -206,7 +206,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Default System Config Directory
+        ///     Returns the Full Path to the Default System Config Directory
         /// </summary>
         /// <param name="name">Name of the Application</param>
         /// <returns>Default System Config Directory</returns>
@@ -216,7 +216,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Default Plugin Directory
+        ///     Returns the Full Path to the Default Plugin Directory
         /// </summary>
         /// <param name="baseDir">Base Directory</param>
         /// <param name="name">Name of the Application</param>
@@ -227,7 +227,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Default Plugin Directory
+        ///     Returns the Full Path to the Default Plugin Directory
         /// </summary>
         /// <param name="name">Name of the Application</param>
         /// <returns>Default Plugin Directory</returns>
@@ -238,7 +238,7 @@ namespace PluginSystem.FileSystem
 
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Directory
+        ///     Returns the Full Path to the Plugin Directory
         /// </summary>
         /// <param name="name">Name of the Plugin</param>
         /// <returns>Plugin Directory</returns>
@@ -248,7 +248,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Directory
+        ///     Returns the Full Path to the Plugin Directory
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         /// <returns>Plugin Directory</returns>
@@ -258,7 +258,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Config Directory
+        ///     Returns the Full Path to the Plugin Config Directory
         /// </summary>
         /// <param name="name">Name of the Plugin</param>
         /// <returns>Plugin Config Directory</returns>
@@ -268,7 +268,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Directory
+        ///     Returns the Full Path to the Plugin Directory
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         /// <returns>Plugin Config Directory</returns>
@@ -278,7 +278,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Assembly Directory
+        ///     Returns the Full Path to the Plugin Assembly Directory
         /// </summary>
         /// <param name="name">Name of the Plugin</param>
         /// <returns>Plugin Assembly Directory</returns>
@@ -288,7 +288,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Assembly Directory
+        ///     Returns the Full Path to the Plugin Assembly Directory
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         /// <returns>Plugin Assembly Directory</returns>
@@ -298,13 +298,13 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Internal Configuration Directory
+        ///     Returns the Full Path to the Internal Configuration Directory
         /// </summary>
         public static string InternalConfigurationDirectory =>
             Path.Combine(InternalSystemConfigPath, StaticData.ConfigFolder);
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Temp Directory
+        ///     Returns the Full Path to the Plugin Temp Directory
         /// </summary>
         /// <param name="name">Name of the Plugin</param>
         /// <returns>Plugin Temp Directory</returns>
@@ -314,7 +314,7 @@ namespace PluginSystem.FileSystem
         }
 
         /// <summary>
-        /// Returns the Full Path to the Plugin Temp Directory
+        ///     Returns the Full Path to the Plugin Temp Directory
         /// </summary>
         /// <param name="data">The Pointer Data</param>
         /// <returns>Plugin Temp Directory</returns>

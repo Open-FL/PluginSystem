@@ -7,13 +7,15 @@ using PluginSystem.FileSystem;
 namespace PluginSystem.Core.Pointer
 {
     /// <summary>
-    /// Base Plugin Pointer that contains the information of a Plugin
+    ///     Base Plugin Pointer that contains the information of a Plugin
     /// </summary>
     public class BasePluginPointer
     {
 
+        private readonly string dependencies;
+
         /// <summary>
-        /// Simple Constructor
+        ///     Simple Constructor
         /// </summary>
         /// <param name="name">Plugin Name</param>
         /// <param name="file">Plugin File</param>
@@ -22,12 +24,12 @@ namespace PluginSystem.Core.Pointer
             PluginFile = file;
             PluginName = name;
             PluginOrigin = origin;
-            this.dependencies =dependencies;
+            this.dependencies = dependencies;
             PluginVersion = Version.Parse(pluginVersion);
         }
 
         /// <summary>
-        /// Creates a BasePluginPointer with a Plugin Key Pair as input
+        ///     Creates a BasePluginPointer with a Plugin Key Pair as input
         /// </summary>
         /// <param name="pluginKeyPair">The key pair as its read from the list</param>
         public BasePluginPointer(string pluginKeyPair)
@@ -47,12 +49,12 @@ namespace PluginSystem.Core.Pointer
         }
 
         /// <summary>
-        /// The plugin Name
+        ///     The plugin Name
         /// </summary>
         public string PluginName { get; }
 
         /// <summary>
-        /// The Plugin File Path(after the /bin folder in the Plugin Directory.
+        ///     The Plugin File Path(after the /bin folder in the Plugin Directory.
         /// </summary>
         public string PluginFile { get; }
 
@@ -60,23 +62,22 @@ namespace PluginSystem.Core.Pointer
 
         public Version PluginVersion { get; }
 
-        private readonly string dependencies;
-
         public string[] Dependencies => dependencies?.Split(';') ?? new string[0];
 
         public Uri PluginOriginUri => string.IsNullOrEmpty(PluginOrigin) ? null : new Uri(PluginOrigin);
 
         /// <summary>
-        /// Converts a BasePluginPointer into the Plugin Key Pair Representation
+        ///     Converts a BasePluginPointer into the Plugin Key Pair Representation
         /// </summary>
         /// <returns>Key Value Pair from the PluginName and PluginFile ({PluginName}|PluginFile}</returns>
         public string ToKeyPair()
         {
-            return $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}{StaticData.KeyPairSeparator}{PluginVersion}{StaticData.KeyPairSeparator}{dependencies}";
+            return
+                $"{PluginName}{StaticData.KeyPairSeparator}{PluginFile}{StaticData.KeyPairSeparator}{PluginOrigin}{StaticData.KeyPairSeparator}{PluginVersion}{StaticData.KeyPairSeparator}{dependencies}";
         }
 
         /// <summary>
-        /// To String Implementation Listing all Retrievable Information about the Plugin.
+        ///     To String Implementation Listing all Retrievable Information about the Plugin.
         /// </summary>
         /// <returns>Information Text about this Object.</returns>
         public override string ToString()
