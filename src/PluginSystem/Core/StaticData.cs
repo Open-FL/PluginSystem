@@ -70,11 +70,6 @@ namespace PluginSystem.Core
         /// </summary>
         public static string LoadOrderListName { get; } = "load-order";
 
-        /// <summary>
-        ///     The Name of the List File which will be used to store the Load order of the Plugins
-        /// </summary>
-        public static string InitLoadOrderListName { get; } = "init-load-order";
-
         //Plugin Folder Names
         /// <summary>
         ///     The Name of the Folder that contains the Binary Data of a Plugin/Package
