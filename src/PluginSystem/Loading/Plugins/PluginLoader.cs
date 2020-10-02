@@ -190,11 +190,18 @@ namespace PluginSystem.Loading.Plugins
         /// <returns>List of types that can be assigned to interfaceT</returns>
         internal static Type[] FindTypesWithInterface(Assembly asm, Type interfaceT)
         {
+            try
+            {
+                Type[] ret = FindTypesWithInterface(asm.GetTypes(), interfaceT);
+                return ret;
+            }
+            catch (Exception e)
+            {
+                PluginManager.SendLog("Could not load assembly: " + asm+ " it has missing dependencies.");
+                return new Type[0];
+            }
             //PluginManager.SendLog($"Finding Classes of type {interfaceT.Name} in Assemblies..");
-            Type[] ret = FindTypesWithInterface(asm.GetTypes(), interfaceT);
-
             //PluginManager.SendLog($"Found {ret.Length} Classes.");
-            return ret;
         }
 
     }
