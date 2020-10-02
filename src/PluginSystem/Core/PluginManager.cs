@@ -202,6 +202,11 @@ namespace PluginSystem.Core
         /// </summary>
         public static event PluginEvents.LogMessageEvent OnLog = DefaultLogHandler;
 
+        public static void SetLogEventHandler(PluginEvents.LogMessageEvent handler)
+        {
+            OnLog = handler;
+        } 
+
         /// <summary>
         ///     Writes a Log through the PluginSystem OnLog Handler
         /// </summary>
