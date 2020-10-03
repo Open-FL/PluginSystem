@@ -92,7 +92,7 @@ namespace PluginSystem.Loading.Plugins
         /// </summary>
         /// <param name="file"></param>
         /// <returns>Loaded Assembly</returns>
-        internal static Assembly SaveLoadFrom(string file)
+        public static Assembly SaveLoadFrom(string file)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace PluginSystem.Loading.Plugins
         /// </summary>
         /// <param name="data">Pointer Data</param>
         /// <returns>Loaded Assembly</returns>
-        internal static Assembly SaveLoadFrom(PluginAssemblyPointer data)
+        public static Assembly SaveLoadFrom(PluginAssemblyPointer data)
         {
             return SaveLoadFrom(PluginPaths.GetPluginAssemblyFile(data));
         }
