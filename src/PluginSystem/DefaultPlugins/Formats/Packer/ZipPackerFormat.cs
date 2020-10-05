@@ -16,7 +16,7 @@ namespace PluginSystem.DefaultPlugins.Formats.Packer
                 ZipFile.Open(file, ZipArchiveMode.Read).Dispose();
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

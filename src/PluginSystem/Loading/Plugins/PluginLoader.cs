@@ -195,7 +195,7 @@ namespace PluginSystem.Loading.Plugins
                 Type[] ret = FindTypesWithInterface(asm.GetTypes(), interfaceT);
                 return ret;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 PluginManager.SendLog("Could not load assembly: " + asm+ " it has missing dependencies.");
                 return new Type[0];
