@@ -17,12 +17,12 @@ namespace PluginSystem.Core.Pointer
         /// <param name="file">Plugin File</param>
         /// <param name="host">The Plugin Host</param>
         public PluginAssemblyPointer(string name, string file, string origin, string version, IPluginHost host) : base(
-                                                                                                                       name,
-                                                                                                                       file,
-                                                                                                                       origin,
-                                                                                                                       version,
-                                                                                                                       ""
-                                                                                                                      )
+             name,
+             file,
+             origin,
+             version,
+             ""
+            )
         {
             Host = host;
         }

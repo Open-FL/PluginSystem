@@ -5,7 +5,6 @@ namespace PluginSystem.Exceptions
 {
     public class PackageDataException : PluginIOException
     {
-        
 
         public PackageDataException(string message, string file, Exception inner) : base(message, file, inner)
         {

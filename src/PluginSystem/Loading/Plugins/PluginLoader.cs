@@ -76,10 +76,10 @@ namespace PluginSystem.Loading.Plugins
                 {
                     PluginManager.SendError(
                                             new TypeInstantiationReflectionException(
-                                                                                     "Could not Instantiate the Plugin",
-                                                                                     plugin,
-                                                                                     e
-                                                                                    )
+                                                 "Could not Instantiate the Plugin",
+                                                 plugin,
+                                                 e
+                                                )
                                            );
                 }
             }
@@ -197,9 +197,10 @@ namespace PluginSystem.Loading.Plugins
             }
             catch (Exception)
             {
-                PluginManager.SendLog("Could not load assembly: " + asm+ " it has missing dependencies.");
+                PluginManager.SendLog("Could not load assembly: " + asm + " it has missing dependencies.");
                 return new Type[0];
             }
+
             //PluginManager.SendLog($"Finding Classes of type {interfaceT.Name} in Assemblies..");
             //PluginManager.SendLog($"Found {ret.Length} Classes.");
         }

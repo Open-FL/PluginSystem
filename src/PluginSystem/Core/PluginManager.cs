@@ -205,7 +205,7 @@ namespace PluginSystem.Core
         public static void SetLogEventHandler(PluginEvents.LogMessageEvent handler)
         {
             OnLog = handler;
-        } 
+        }
 
         /// <summary>
         ///     Writes a Log through the PluginSystem OnLog Handler
@@ -751,12 +751,12 @@ namespace PluginSystem.Core
                         foreach (KeyValuePair<IPluginHost, List<IPlugin>> loadedPlugin in LoadedPlugins)
                         {
                             PluginAssemblyPointer ptr = new PluginAssemblyPointer(
-                                                                                  packageKey.PluginName,
-                                                                                  packageKey.PluginFile,
-                                                                                  packageKey.PluginOrigin,
-                                                                                  packageKey.PluginVersion.ToString(),
-                                                                                  loadedPlugin.Key
-                                                                                 );
+                                 packageKey.PluginName,
+                                 packageKey.PluginFile,
+                                 packageKey.PluginOrigin,
+                                 packageKey.PluginVersion.ToString(),
+                                 loadedPlugin.Key
+                                );
                             PluginLoader.AddPluginsFromLoaderResult(ptr);
                         }
                     }

@@ -52,11 +52,11 @@ namespace TestApplication
                                                              "plugins",
                                                              (msg, title) =>
                                                                  MessageBox.Show(
-                                                                                 msg,
-                                                                                 title,
-                                                                                 MessageBoxButtons.YesNo,
-                                                                                 MessageBoxIcon.Question
-                                                                                ) ==
+                                                                      msg,
+                                                                      title,
+                                                                      MessageBoxButtons.YesNo,
+                                                                      MessageBoxIcon.Question
+                                                                     ) ==
                                                                  DialogResult.Yes,
                                                              (status, current, max) =>
                                                              {

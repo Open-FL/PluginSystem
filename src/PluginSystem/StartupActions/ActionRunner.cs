@@ -61,10 +61,10 @@ namespace PluginSystem.StartupActions
                                                                         x =>
                                                                             (x.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0],
                                                                              x.Split(
-                                                                                     new[] { ' ' },
-                                                                                     StringSplitOptions
-                                                                                         .RemoveEmptyEntries
-                                                                                    ).Skip(1).ToArray())
+                                                                                  new[] { ' ' },
+                                                                                  StringSplitOptions
+                                                                                      .RemoveEmptyEntries
+                                                                                 ).Skip(1).ToArray())
                                                                        ).ToList();
             foreach ((string key, string[] content) instruction in instructions)
             {
