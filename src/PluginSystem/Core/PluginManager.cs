@@ -86,7 +86,7 @@ namespace PluginSystem.Core
 
         public static void Initialize(
             string rootPath, string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog,
-            Action<string, int, int> setStatus, string staticDataConfig = null, bool checkUpdates=true)
+            Action<string, int, int> setStatus, string staticDataConfig = null, bool checkUpdates = true)
         {
             if (!Directory.Exists(rootPath))
             {
@@ -110,7 +110,7 @@ namespace PluginSystem.Core
         /// <param name="pluginDirectory">The Path used as "Install Directory" for Plugins/Packages</param>
         public static void Initialize(
             string internalConfigPath, string pluginDirectory, Func<string, string, bool> updateDialog,
-            Action<string, int, int> setStatus, string staticDataConfig = null, bool checkUpdates=true)
+            Action<string, int, int> setStatus, string staticDataConfig = null, bool checkUpdates = true)
         {
             if (IsInitialized)
             {
@@ -149,9 +149,11 @@ namespace PluginSystem.Core
                 ActionRunner.RunActions();
             }
 
-            if(checkUpdates)
+            if (checkUpdates)
+            {
                 ListHelper.LoadList(PluginPaths.PluginListFile).Select(x => new BasePluginPointer(x)).ToList()
-                        .ForEach(x => UpdateManager.CheckAndUpdate(x, updateDialog, setStatus));
+                          .ForEach(x => UpdateManager.CheckAndUpdate(x, updateDialog, setStatus));
+            }
 
             SendLog("Registering System Host..");
 
