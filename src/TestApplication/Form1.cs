@@ -3,12 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using PluginSystem.Core;
-using PluginSystem.Core.Interfaces;
-using PluginSystem.Core.Pointer;
-using PluginSystem.FileSystem;
-using PluginSystem.StartupActions;
-
 namespace TestApplication
 {
     public partial class Form1 : Form, IPluginHost
